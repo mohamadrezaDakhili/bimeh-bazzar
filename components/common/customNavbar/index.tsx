@@ -6,7 +6,7 @@ const CustomNavbar = (props: ICustomNavbarProps) => {
   return (
     <div className="w-full h-[56px] px-2 py-3 flex items-center gap-[6px] shadow-custom">
       <div>{icon}</div>
-      <span className="text-[18px]">{text}</span>
+      <span className="text-[18px] font-medium">{text}</span>
     </div>
   );
 };

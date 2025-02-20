@@ -4,6 +4,7 @@ import "./globals.css";
 
 const vazirmatn = Vazirmatn({
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -21,7 +22,7 @@ export default function RootLayout({
       <body
         className={`${vazirmatn.className} antialiased flex justify-center items-center`}
       >
-        <div className="min-w-[360px] max-w-[500px] w-full">{children}</div>
+        <div className="min-w-[360px] max-w-[360px] w-full">{children}</div>
       </body>
     </html>
   );
