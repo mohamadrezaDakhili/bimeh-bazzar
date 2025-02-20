@@ -38,7 +38,7 @@ export default function RegisterForm() {
   ];
 
   return (
-    <div className="py-6 px-[19px]">
+    <div>
       <h2 className="text-[16px] font-medium mb-[6px]">
         لطفا اطلاعات شخصی مالک خودرو را وارد کنید:
       </h2>
@@ -54,7 +54,7 @@ export default function RegisterForm() {
                 <Field
                   name={name}
                   placeholder={placeholder}
-                  className={`w-full p-2 border h-[48px] placeholder:text-[#757575] 
+                  className={`w-full p-2 border h-[48px] placeholder:text-[#757575] text-sm text-[#404040]
               ${
                 formik.errors[name as keyof typeof formik.errors] &&
                 formik.touched[name as keyof typeof formik.touched]
@@ -73,13 +73,13 @@ export default function RegisterForm() {
             ))}
 
             {/* Submit button */}
-            <button
+            {/* <button
               type="submit"
               disabled={formik.isSubmitting}
               className="w-full bg-blue-500 text-white p-2 rounded"
             >
               {formik.isSubmitting ? "Submitting..." : "Submit"}
-            </button>
+            </button> */}
           </Form>
         )}
       </Formik>
