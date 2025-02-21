@@ -3,7 +3,14 @@ import BottomSheet from "@/components/common/buttomSheet";
 import CustomButton from "@/components/common/button/CustomButton";
 import { orderComplition } from "@/services";
 import { useStore } from "@/zustand/store/store";
-import { ErrorMessage, Form, Formik, FormikHelpers, FormikProps } from "formik";
+import {
+  ErrorMessage,
+  Field,
+  Form,
+  Formik,
+  FormikHelpers,
+  FormikProps,
+} from "formik";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
 import UserAddress from "../userAddress";
@@ -107,7 +114,7 @@ export default function RegisterForm() {
             <Form className="flex flex-col">
               {formFields.map(({ name, placeholder }) => (
                 <div key={name} className="text-[#757575] relative">
-                  <input
+                  <Field
                     name={name}
                     placeholder={placeholder}
                     className={`w-full p-2 border h-[48px] placeholder:text-[#757575] text-sm text-[#404040]
@@ -137,7 +144,7 @@ export default function RegisterForm() {
                   variant={
                     !formik.isValid || !activeAddress
                       ? "disabled"
-                      : formik.isSubmitting
+                      : isloadingRetry
                       ? "loading"
                       : "selected"
                   }
