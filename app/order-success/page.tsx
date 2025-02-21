@@ -8,7 +8,7 @@ const Success = () => {
     router.back();
   };
   return (
-    <div className="h-[100vh] flex flex-col justify-between">
+    <div className="h-[100svh] flex flex-col justify-between">
       <div>
         <InsurancePolicyDetails isShowOrderSuccess={true} />
       </div>
