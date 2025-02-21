@@ -15,7 +15,7 @@ const Success = () => {
       <div className="flex justify-end px-4 py-3">
         <CustomButton
           variant="selected"
-          className="w-[140px]"
+          className="!w-[140px]"
           onClick={handleBack}
         >
           بازگشت
