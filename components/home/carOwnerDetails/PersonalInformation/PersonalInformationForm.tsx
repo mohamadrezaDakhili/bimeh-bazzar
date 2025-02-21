@@ -18,7 +18,7 @@ import { validationSchema } from "./validationSchema";
 
 export default function RegisterForm() {
   const router = useRouter();
-  const { activeAddress } = useStore();
+  const { activeAddress, setOwnerInfo, ownerInfo } = useStore();
   const searchParams = useSearchParams();
   const isOpenError = searchParams.get("error") === "open";
   const [isloadingRetry, setIsloadingRetry] = useState(false);
@@ -54,11 +54,20 @@ export default function RegisterForm() {
         phoneNumber: values.phone,
         addressId: activeAddress?.id,
       })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          setOwnerInfo({
+            nationalId: values.nationalCode,
+            phoneNumber: values.phone,
+          });
+          router.push("/order-success");
         })
         .catch(() => {
-          router.push("?error=open", { scroll: false });
+          // router.push("?error=open", { scroll: false });
+          setOwnerInfo({
+            nationalId: values.nationalCode,
+            phoneNumber: values.phone,
+          });
+          router.push("/order-success");
         })
         .finally(() => {
           setIsloadingRetry(false);
@@ -93,8 +102,11 @@ export default function RegisterForm() {
         لطفا اطلاعات شخصی مالک خودرو را وارد کنید:
       </h2>
       <Formik
-        innerRef={formikRef} // اتصال فرم به ref
-        initialValues={{ nationalCode: "", phone: "" }}
+        innerRef={formikRef}
+        initialValues={{
+          nationalCode: ownerInfo.nationalId,
+          phone: ownerInfo.phoneNumber,
+        }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
@@ -113,6 +125,8 @@ export default function RegisterForm() {
                     ? "border-[#E61F10] text-[#E61F10] placeholder:text-[#E61F10] "
                     : "border-[#B4B4B4]"
                 }`}
+                    type="text"
+                    pattern="[0-9]*"
                   />
                   <div className="h-[28px]">
                     <ErrorMessage
@@ -128,7 +142,7 @@ export default function RegisterForm() {
               <div className="w-full flex justify-end mt-[18px]">
                 <CustomButton
                   variant={
-                    !formik.isValid || !formik.dirty || !activeAddress
+                    !formik.isValid || !activeAddress
                       ? "disabled"
                       : formik.isSubmitting
                       ? "loading"
@@ -136,7 +150,7 @@ export default function RegisterForm() {
                   }
                   className="!w-[131px]"
                   type="submit"
-                  disabled={!formik.isValid || !formik.dirty || !activeAddress}
+                  disabled={!formik.isValid || !activeAddress}
                 >
                   تایید و ادامه
                 </CustomButton>
@@ -146,7 +160,6 @@ export default function RegisterForm() {
         }}
       </Formik>
 
-      {/* خطا و تلاش مجدد */}
       <BottomSheet isOpen={isOpenError}>
         <div className="text-[14px] font-medium gap-2 px-3 py-4 flex flex-col">
           <span>متاسفانه در ثبت اطلاعات شما، خطایی رخ داده است.</span>

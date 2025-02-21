@@ -5,7 +5,6 @@ import React, { useEffect } from "react";
 const Test = () => {
   useEffect(() => {
     fetchAddressData().then((res) => {
-      console.log(res, "res");
       orderComplition({
         nationalId: "0017227828",
         phoneNumber: "09384010471",
