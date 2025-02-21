@@ -114,7 +114,7 @@ export default function RegisterForm() {
             <Form className="flex flex-col">
               {formFields.map(({ name, placeholder }) => (
                 <div key={name} className="text-[#757575] relative">
-                  <Field
+                  <input
                     name={name}
                     placeholder={placeholder}
                     className={`w-full p-2 border h-[48px] placeholder:text-[#757575] text-sm text-[#404040]
@@ -124,7 +124,9 @@ export default function RegisterForm() {
                     ? "border-[#E61F10] text-[#E61F10] placeholder:text-[#E61F10] "
                     : "border-[#B4B4B4]"
                 }`}
-                    type="number"
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                   />
                   <div className="h-[28px]">
                     <ErrorMessage
