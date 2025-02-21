@@ -61,12 +61,12 @@ export default function RegisterForm() {
           router.push("/order-success");
         })
         .catch(() => {
-          // router.push("?error=open", { scroll: false });
-          setOwnerInfo({
-            nationalId: values.nationalCode,
-            phoneNumber: values.phone,
-          });
-          router.push("/order-success");
+          router.push("?error=open", { scroll: false });
+          // setOwnerInfo({
+          //   nationalId: values.nationalCode,
+          //   phoneNumber: values.phone,
+          // });
+          // router.push("/order-success");
         })
         .finally(() => {
           setIsloadingRetry(false);
