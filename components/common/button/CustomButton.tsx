@@ -1,6 +1,5 @@
-import React from "react";
 import cn from "classnames";
-import Loading from "../loading";
+import React from "react";
 
 type ButtonVariant = "default" | "loading" | "selected" | "disabled" | "yellow";
 

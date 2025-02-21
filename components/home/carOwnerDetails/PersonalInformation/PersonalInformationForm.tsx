@@ -1,6 +1,6 @@
 "use client";
+import BottomSheet from "@/components/common/buttomSheet";
 import CustomButton from "@/components/common/button/CustomButton";
-import Loading from "@/components/common/loading";
 import { orderComplition } from "@/services";
 import { useStore } from "@/zustand/store/store";
 import {
@@ -12,10 +12,9 @@ import {
   FormikProps,
 } from "formik";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useRef, useState } from "react";
 import UserAddress from "../userAddress";
 import { validationSchema } from "./validationSchema";
-import BottomSheet from "@/components/common/buttomSheet";
-import { useRef, useState } from "react";
 
 export default function RegisterForm() {
   const router = useRouter();
