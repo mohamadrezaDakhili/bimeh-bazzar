@@ -23,7 +23,6 @@ export default function RegisterForm() {
   const isOpenError = searchParams.get("error") === "open";
   const [isloadingRetry, setIsloadingRetry] = useState(false);
 
-  // ایجاد یک ref برای Formik
   const formikRef = useRef<FormikProps<{
     nationalCode: string;
     phone: string;
@@ -125,8 +124,7 @@ export default function RegisterForm() {
                     ? "border-[#E61F10] text-[#E61F10] placeholder:text-[#E61F10] "
                     : "border-[#B4B4B4]"
                 }`}
-                    type="text"
-                    pattern="[0-9]*"
+                    type="number"
                   />
                   <div className="h-[28px]">
                     <ErrorMessage
