@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Vazirmatn } from "next/font/google";
 import "./globals.css";
+import Providers from "./providers";
 
 const vazirmatn = Vazirmatn({
   subsets: ["latin"],
@@ -22,7 +23,9 @@ export default function RootLayout({
       <body
         className={`${vazirmatn.className} antialiased flex justify-center items-center`}
       >
-        <div className="min-w-[360px] max-w-[360px] w-full">{children}</div>
+        <div className="min-w-[360px] max-w-[360px] w-full">
+          <Providers>{children}</Providers>
+        </div>
       </body>
     </html>
   );

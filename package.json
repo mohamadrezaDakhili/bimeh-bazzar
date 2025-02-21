@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.66.8",
     "classnames": "^2.5.1",
     "formik": "^2.4.6",
     "next": "15.1.7",
