@@ -1,9 +1,6 @@
 "use client";
-import { InsurancePolicyDetails } from "@/components/home";
-import Image from "next/image";
-import React from "react";
-import validationSuccess from "@/public/images/validation_form.png";
 import CustomButton from "@/components/common/button/CustomButton";
+import { InsurancePolicyDetails } from "@/components/home";
 import { useRouter } from "next/navigation";
 const Success = () => {
   const router = useRouter();
