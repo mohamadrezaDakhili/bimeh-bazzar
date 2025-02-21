@@ -1,7 +1,6 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
-import CustomButton from "../button/CustomButton";
+import { useCallback, useEffect } from "react";
 
 interface BottomSheetProps {
   children: React.ReactNode;
@@ -13,9 +12,13 @@ export default function BottomSheet({ children, title }: BottomSheetProps) {
   const searchParams = useSearchParams();
   const isOpen = searchParams.get("sheet") === "open";
 
-  const closeSheet = () => {
+  // const closeSheet = () => {
+  //   router.replace("/", { scroll: false });
+  // };
+
+  const closeSheet = useCallback(() => {
     router.replace("/", { scroll: false });
-  };
+  }, [router]);
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -24,7 +27,7 @@ export default function BottomSheet({ children, title }: BottomSheetProps) {
 
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
-  }, []);
+  }, [closeSheet]);
 
   return (
     <>

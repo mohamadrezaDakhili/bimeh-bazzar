@@ -1,19 +1,27 @@
 "use client";
-import { ErrorMessage, Field, Form, Formik, FormikProps } from "formik";
-import { validationSchema } from "./validationSchema";
-import UserAddress from "../userAddress";
 import CustomButton from "@/components/common/button/CustomButton";
 import Loading from "@/components/common/loading";
-import { useStore } from "@/zustand/store/store";
 import { orderComplition } from "@/services";
+import { useStore } from "@/zustand/store/store";
+import {
+  ErrorMessage,
+  Field,
+  Form,
+  Formik,
+  FormikHelpers,
+  FormikProps,
+} from "formik";
+import UserAddress from "../userAddress";
+import { validationSchema } from "./validationSchema";
 
 export default function RegisterForm() {
   const { activeAddress } = useStore();
 
   const handleSubmit = async (
     values: { nationalCode: string; phone: string },
-    { setFieldError }: any
+    formikHelpers: FormikHelpers<{ nationalCode: string; phone: string }>
   ) => {
+    const { setFieldError } = formikHelpers;
     //  Send request to national code validation API
     try {
       const res = await fetch("/api/validate-national-code", {
@@ -35,7 +43,7 @@ export default function RegisterForm() {
       }).then((res) => {
         console.log(res);
       });
-    } catch (error) {
+    } catch {
       alert("❌ An error occurred!");
     }
   };

@@ -4,8 +4,8 @@ function isValidNationalCode(code: string): boolean {
   if (!/^\d{10}$/.test(code)) return false;
   const digits = code.split("").map(Number);
   const checkDigit = digits.pop()!;
-  let sum = digits.reduce((acc, digit, i) => acc + digit * (10 - i), 0);
-  let remainder = sum % 11;
+  const sum = digits.reduce((acc, digit, i) => acc + digit * (10 - i), 0);
+  const remainder = sum % 11;
   return remainder < 2 ? checkDigit === remainder : checkDigit === 11 - remainder;
 }
 
