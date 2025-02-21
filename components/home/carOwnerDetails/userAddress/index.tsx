@@ -4,6 +4,7 @@ import BottomSheet from "@/components/common/buttomSheet";
 import CustomButton from "@/components/common/button/CustomButton";
 import { useRouter } from "next/navigation";
 import React from "react";
+import BottomSheetData from "./bottomSheetData";
 
 const UserAddress = () => {
   const router = useRouter();
@@ -18,7 +19,9 @@ const UserAddress = () => {
         انتخاب از آدرس‌های من
       </CustomButton>
 
-      <BottomSheet />
+      <BottomSheet title="انتخاب آدرس">
+        <BottomSheetData />
+      </BottomSheet>
     </div>
   );
 };

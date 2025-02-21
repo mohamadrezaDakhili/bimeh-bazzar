@@ -13,7 +13,7 @@ const CarOwnerDetails = () => {
         <RegisterForm />
         <UserAddress />
         <div className="w-full flex justify-end mt-[18px]">
-          <CustomButton variant="selected" className="w-[131px]">
+          <CustomButton variant="selected" className="!w-[131px]">
             تایید و ادامه
           </CustomButton>
         </div>

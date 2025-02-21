@@ -2,18 +2,20 @@
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import CustomCheckbox from "../checkbox";
+interface BottomSheetProps {
+  children: React.ReactNode;
+  title: string;
+}
 
-export default function BottomSheet() {
+export default function BottomSheet({ children, title }: BottomSheetProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const isOpen = searchParams.get("sheet") === "open"; // بررسی باز بودن شیت
+  const isOpen = searchParams.get("sheet") === "open";
 
-  // تابع برای بستن شیت
   const closeSheet = () => {
     router.replace("/", { scroll: false });
   };
 
-  // بستن با کلید ESC
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") closeSheet();
@@ -41,7 +43,7 @@ export default function BottomSheet() {
         `}
       >
         <header className="flex justify-between py-4 border-b border-[#E0E0E0] px-3">
-          <span className="text-base font-medium">انتخاب آدرس</span>
+          <span className="text-base font-medium">{title}</span>
           <button
             className="text-[#C2C2C2] text-lg font-medium"
             onClick={closeSheet}
@@ -49,40 +51,7 @@ export default function BottomSheet() {
             ✕
           </button>
         </header>
-        <section className="px-3 py-4 flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <div className="flex justify-between">
-              <CustomCheckbox label="آدرس شماره 1" />
-              <button
-                className="text-[#FFA5A5] text-sm font-medium"
-                onClick={() => {}}
-              >
-                ✕
-              </button>
-            </div>
-            <div className="mx-6">
-              <p className="text-[12px] font-normal text-[#757575]">
-                فارس، شیراز، خیابان جمهوری، بالاتر از فلان، پلاک ۶، واحد ۲۳۴
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <div className="flex justify-between">
-              <CustomCheckbox label="آدرس شماره 1" />
-              <button
-                className="text-[#FFA5A5] text-sm font-medium"
-                onClick={() => {}}
-              >
-                ✕
-              </button>
-            </div>
-            <div className="mx-6">
-              <p className="text-[12px] font-normal text-[#757575]">
-                فارس، شیراز، خیابان جمهوری، بالاتر از فلان، پلاک ۶، واحد ۲۳۴
-              </p>
-            </div>
-          </div>
-        </section>
+        {children}
       </div>
     </>
   );
