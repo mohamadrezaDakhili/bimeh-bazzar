@@ -1,21 +1,19 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
 
 interface BottomSheetProps {
   children: React.ReactNode;
-  title: string;
+  title?: string;
+  isOpen: boolean;
 }
 
-export default function BottomSheet({ children, title }: BottomSheetProps) {
+export default function BottomSheet({
+  children,
+  title,
+  isOpen,
+}: BottomSheetProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const isOpen = searchParams.get("sheet") === "open";
-
-  // const closeSheet = () => {
-  //   router.replace("/", { scroll: false });
-  // };
-
   const closeSheet = useCallback(() => {
     router.replace("/", { scroll: false });
   }, [router]);
@@ -46,16 +44,19 @@ export default function BottomSheet({ children, title }: BottomSheetProps) {
           ${isOpen ? "translate-y-0" : "translate-y-full"}
         `}
       >
-        <header className="flex justify-between py-4 border-b border-[#E0E0E0] px-3">
-          <span className="text-base font-medium">{title}</span>
-          <button
-            className="text-[#C2C2C2] text-lg font-medium"
-            onClick={closeSheet}
-            type="button"
-          >
-            ✕
-          </button>
-        </header>
+        {title && (
+          <header className="flex justify-between py-4 border-b border-[#E0E0E0] px-3">
+            <span className="text-base font-medium">{title}</span>
+            <button
+              className="text-[#C2C2C2] text-lg font-medium"
+              onClick={closeSheet}
+              type="button"
+            >
+              ✕
+            </button>
+          </header>
+        )}
+
         {children}
       </div>
     </>

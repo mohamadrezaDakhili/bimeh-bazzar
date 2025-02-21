@@ -1,5 +1,6 @@
 import React from "react";
 import cn from "classnames";
+import Loading from "../loading";
 
 type ButtonVariant = "default" | "loading" | "selected" | "disabled" | "yellow";
 
@@ -22,7 +23,7 @@ const CustomButton: React.FC<ButtonProps> = ({
           "bg-white text-black border-2 border-black": variant === "default",
           "bg-[#FFC453] text-black border-black font-semibold text-base":
             variant === "yellow",
-          "bg-gray-400 text-gray-600 border-gray-400 cursor-not-allowed relative":
+          "bg-[#ACACAC] text-[#525252] cursor-not-allowed relative":
             variant === "loading",
           "bg-black text-white border-black": variant === "selected",
           "bg-[#DAD8D8] text-[#858484] cursor-not-allowed":
@@ -32,7 +33,12 @@ const CustomButton: React.FC<ButtonProps> = ({
       )}
     >
       {variant === "loading" ? (
-        <span className="animate-spin">⏳</span>
+        <div className="flex w-full justify-center gap-2">
+          <div className="flex justify-center items-center w-fit">
+            <div className="w-4 h-4 border-2 border-black/50 border-t-[#D1D2D2] rounded-full animate-spin"></div>
+          </div>
+          <span>{children}</span>
+        </div>
       ) : (
         children
       )}

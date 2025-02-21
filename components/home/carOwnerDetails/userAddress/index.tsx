@@ -11,8 +11,10 @@ const UserAddress = () => {
   const router = useRouter();
   const { activeAddress } = useStore();
   const searchParams = useSearchParams();
+  const isOpen = searchParams.get("sheet") === "open";
   const isOpenRemoveAddress = searchParams.get("remove") !== null;
   const openSheet = () => router.push("?sheet=open", { scroll: false });
+
   return (
     <div className="mt-6 flex flex-col gap-[6px]">
       <h2 className="text-base font-medium">آدرس جهت درج روی بیمه‌نامه</h2>
@@ -31,7 +33,10 @@ const UserAddress = () => {
         </>
       )}
 
-      <BottomSheet title={isOpenRemoveAddress ? "حذف آدرس" : "انتخاب آدرس"}>
+      <BottomSheet
+        title={isOpenRemoveAddress ? "حذف آدرس" : "انتخاب آدرس"}
+        isOpen={isOpen}
+      >
         <BottomSheetData />
       </BottomSheet>
     </div>
