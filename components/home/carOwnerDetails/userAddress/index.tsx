@@ -12,10 +12,7 @@ const UserAddress = () => {
   const { activeAddress } = useStore();
   const searchParams = useSearchParams();
   const isOpenRemoveAddress = searchParams.get("remove") !== null;
-  const openSheet = () => router.replace("?sheet=open", { scroll: false });
-
-  console.log(searchParams.get("remove"), "isOpenRemoveAddress");
-
+  const openSheet = () => router.push("?sheet=open", { scroll: false });
   return (
     <div className="mt-6 flex flex-col gap-[6px]">
       <h2 className="text-base font-medium">آدرس جهت درج روی بیمه‌نامه</h2>

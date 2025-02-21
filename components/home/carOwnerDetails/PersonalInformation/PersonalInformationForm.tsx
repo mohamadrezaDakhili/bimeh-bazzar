@@ -7,8 +7,6 @@ export default function RegisterForm() {
     nationalCode: string;
     phone: string;
   }) => {
-    console.log(" Form values:", values);
-
     //  Send request to national code validation API
     try {
       const res = await fetch("/api/validate-national-code", {

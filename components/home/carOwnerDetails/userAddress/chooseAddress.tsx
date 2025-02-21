@@ -1,13 +1,12 @@
+import CustomButton from "@/components/common/button/CustomButton";
+import CustomCheckbox from "@/components/common/checkbox";
 import Loading from "@/components/common/loading";
-import { baseURL } from "@/utils";
+import { fetchAddressData } from "@/services";
+import { useStore } from "@/zustand/store/store";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { IUserAddressProps } from "./interface";
-import CustomCheckbox from "@/components/common/checkbox";
-import { useStore } from "@/zustand/store/store";
-import CustomButton from "@/components/common/button/CustomButton";
-import { fetchAddressData } from "@/services";
 
 const ChooseAddress = () => {
   const router = useRouter();
@@ -40,7 +39,7 @@ const ChooseAddress = () => {
     newQuery.set("remove", item.id);
     const newUrl = `${window.location.pathname}?${newQuery.toString()}`;
 
-    router.replace(newUrl, undefined);
+    router.push(newUrl, undefined);
   };
 
   return (

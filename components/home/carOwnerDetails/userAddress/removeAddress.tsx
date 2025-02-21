@@ -1,3 +1,4 @@
+"use client";
 import CustomButton from "@/components/common/button/CustomButton";
 import { fetchAddressData } from "@/services";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -19,16 +20,11 @@ const RemoveAddress = () => {
     enabled: id !== null,
   });
 
-  useEffect(() => {
-    const item = data.filter((item: IUserAddressProps) => item.id === id);
-    if (item.length > 0) setRemoveItem(item[0]);
-  }, [data]);
-
   const handleBack = () => {
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.delete("remove");
     const newUrl = `${window.location.pathname}?${newSearchParams.toString()}`;
-    router.replace(newUrl, { scroll: false });
+    router.push(newUrl, { scroll: false });
   };
 
   const handleRemoveItem = () => {
@@ -37,6 +33,19 @@ const RemoveAddress = () => {
     });
     handleBack();
   };
+
+  useEffect(() => {
+    if (data) {
+      const item = data.filter((item: IUserAddressProps) => item.id === id);
+      if (item.length > 0) {
+        setRemoveItem(item[0]);
+      } else {
+        handleBack();
+      }
+    } else {
+      handleBack();
+    }
+  }, [data]);
 
   return (
     <>
