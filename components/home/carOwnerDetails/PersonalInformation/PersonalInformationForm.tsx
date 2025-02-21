@@ -4,8 +4,12 @@ import { validationSchema } from "./validationSchema";
 import UserAddress from "../userAddress";
 import CustomButton from "@/components/common/button/CustomButton";
 import Loading from "@/components/common/loading";
+import { useStore } from "@/zustand/store/store";
+import { orderComplition } from "@/services";
 
 export default function RegisterForm() {
+  const { activeAddress } = useStore();
+
   const handleSubmit = async (
     values: { nationalCode: string; phone: string },
     { setFieldError }: any
@@ -24,8 +28,13 @@ export default function RegisterForm() {
         setFieldError("nationalCode", "کد ملی وارد شده معتبر نمی‌باشد!");
         return;
       }
-
-      alert("✅ Registration successful!");
+      orderComplition({
+        nationalId: values.nationalCode,
+        phoneNumber: values.phone,
+        addressId: activeAddress?.id,
+      }).then((res) => {
+        console.log(res);
+      });
     } catch (error) {
       alert("❌ An error occurred!");
     }
@@ -79,14 +88,20 @@ export default function RegisterForm() {
               <div className="w-full flex justify-end mt-[18px]">
                 <CustomButton
                   variant={
-                    formik.isSubmitting || !formik.isValid || !formik.dirty
+                    formik.isSubmitting ||
+                    !formik.isValid ||
+                    !formik.dirty ||
+                    !activeAddress
                       ? "disabled"
                       : "selected"
                   }
                   className="!w-[131px]"
                   type="submit"
                   disabled={
-                    formik.isSubmitting || !formik.isValid || !formik.dirty
+                    formik.isSubmitting ||
+                    !formik.isValid ||
+                    !formik.dirty ||
+                    !activeAddress
                   }
                 >
                   {formik.isSubmitting ? <Loading /> : "تایید و ادامه"}

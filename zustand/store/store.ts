@@ -13,7 +13,7 @@ export const useStore = create<IUseStore>()(
     {
       name: "zustand-storage", // Name of the storage key (you can change this to any string)
       partialize: (state) => ({
-        activeAddress: state.activeAddress,
+        // activeAddress: state.activeAddress,
         // Add any other slices you want to persist
       }),
       // Optionally, you can specify the storage type:
