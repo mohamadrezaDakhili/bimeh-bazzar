@@ -1,12 +1,15 @@
 "use client";
 import { ErrorMessage, Field, Form, Formik, FormikProps } from "formik";
 import { validationSchema } from "./validationSchema";
+import UserAddress from "../userAddress";
+import CustomButton from "@/components/common/button/CustomButton";
+import Loading from "@/components/common/loading";
 
 export default function RegisterForm() {
-  const handleSubmit = async (values: {
-    nationalCode: string;
-    phone: string;
-  }) => {
+  const handleSubmit = async (
+    values: { nationalCode: string; phone: string },
+    { setFieldError }: any
+  ) => {
     //  Send request to national code validation API
     try {
       const res = await fetch("/api/validate-national-code", {
@@ -17,7 +20,8 @@ export default function RegisterForm() {
 
       const data = await res.json();
       if (!data.valid) {
-        alert("❌ Invalid national code!");
+        // Instead of showing alert, set the error message
+        setFieldError("nationalCode", "کد ملی وارد شده معتبر نمی‌باشد!");
         return;
       }
 
@@ -45,41 +49,52 @@ export default function RegisterForm() {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {(formik: FormikProps<{ nationalCode: string; phone: string }>) => (
-          <Form className="flex flex-col">
-            {formFields.map(({ name, placeholder }) => (
-              <div key={name} className="text-[#757575] relative">
-                <Field
-                  name={name}
-                  placeholder={placeholder}
-                  className={`w-full p-2 border h-[48px] placeholder:text-[#757575] text-sm text-[#404040]
-              ${
-                formik.errors[name as keyof typeof formik.errors] &&
-                formik.touched[name as keyof typeof formik.touched]
-                  ? "border-[#E61F10] text-[#E61F10] placeholder:text-[#E61F10] "
-                  : "border-[#B4B4B4]"
-              }`}
-                />
-                <div className="h-[28px]">
-                  <ErrorMessage
+        {(formik: FormikProps<{ nationalCode: string; phone: string }>) => {
+          return (
+            <Form className="flex flex-col">
+              {formFields.map(({ name, placeholder }) => (
+                <div key={name} className="text-[#757575] relative">
+                  <Field
                     name={name}
-                    component="p"
-                    className="text-[#E61F10] text-sm pt-[4px]"
+                    placeholder={placeholder}
+                    className={`w-full p-2 border h-[48px] placeholder:text-[#757575] text-sm text-[#404040]
+                ${
+                  formik.errors[name as keyof typeof formik.errors] &&
+                  formik.touched[name as keyof typeof formik.touched]
+                    ? "border-[#E61F10] text-[#E61F10] placeholder:text-[#E61F10] "
+                    : "border-[#B4B4B4]"
+                }`}
                   />
+                  <div className="h-[28px]">
+                    <ErrorMessage
+                      name={name}
+                      component="p"
+                      className="text-[#E61F10] text-sm pt-[4px]"
+                    />
+                  </div>
                 </div>
+              ))}
+              <UserAddress />
+              {/* Submit button */}
+              <div className="w-full flex justify-end mt-[18px]">
+                <CustomButton
+                  variant={
+                    formik.isSubmitting || !formik.isValid || !formik.dirty
+                      ? "disabled"
+                      : "selected"
+                  }
+                  className="!w-[131px]"
+                  type="submit"
+                  disabled={
+                    formik.isSubmitting || !formik.isValid || !formik.dirty
+                  }
+                >
+                  {formik.isSubmitting ? <Loading /> : "تایید و ادامه"}
+                </CustomButton>
               </div>
-            ))}
-
-            {/* Submit button */}
-            {/* <button
-              type="submit"
-              disabled={formik.isSubmitting}
-              className="w-full bg-blue-500 text-white p-2 rounded"
-            >
-              {formik.isSubmitting ? "Submitting..." : "Submit"}
-            </button> */}
-          </Form>
-        )}
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );

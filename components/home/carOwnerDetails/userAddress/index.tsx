@@ -25,7 +25,7 @@ const UserAddress = () => {
           <p className="text-[14px] font-normal">
             لطفا آدرسی را که می‌خواهید روی بیمه‌نامه درج شود، وارد کنید.
           </p>
-          <CustomButton onClick={openSheet} variant="yellow">
+          <CustomButton onClick={openSheet} variant="yellow" type="button">
             انتخاب از آدرس‌های من
           </CustomButton>
         </>

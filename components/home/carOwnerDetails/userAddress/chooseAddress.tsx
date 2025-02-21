@@ -61,6 +61,7 @@ const ChooseAddress = () => {
                     <button
                       className="text-[#FFA5A5] text-sm font-medium"
                       onClick={() => openRemoveAddress(item)}
+                      type="button"
                     >
                       ✕
                     </button>
@@ -82,6 +83,7 @@ const ChooseAddress = () => {
       >
         <CustomButton
           variant={selectedItem ? "selected" : "disabled"}
+          type="button"
           onClick={handleSubmit}
         >
           انتخاب

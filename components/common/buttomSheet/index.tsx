@@ -1,6 +1,7 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import CustomButton from "../button/CustomButton";
 
 interface BottomSheetProps {
   children: React.ReactNode;
@@ -47,6 +48,7 @@ export default function BottomSheet({ children, title }: BottomSheetProps) {
           <button
             className="text-[#C2C2C2] text-lg font-medium"
             onClick={closeSheet}
+            type="button"
           >
             ✕
           </button>

@@ -72,10 +72,14 @@ const RemoveAddress = () => {
         className="p-[10px] grid grid-cols-2 gap-[10px]"
         style={{ boxShadow: "0px 3px 10px 1px #2222221A" }}
       >
-        <CustomButton variant={"selected"} onClick={handleRemoveItem}>
+        <CustomButton
+          variant={"selected"}
+          onClick={handleRemoveItem}
+          type="button"
+        >
           تایید
         </CustomButton>
-        <CustomButton variant={"default"} onClick={handleBack}>
+        <CustomButton variant={"default"} onClick={handleBack} type="button">
           بازگشت
         </CustomButton>
       </div>
