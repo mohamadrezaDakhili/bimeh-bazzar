@@ -19,7 +19,7 @@ const CustomButton: React.FC<ButtonProps> = ({
       className={cn(
         "w-full py-3 flex items-center justify-center",
         {
-          "bg-white text-black border-black": variant === "default",
+          "bg-white text-black border-2 border-black": variant === "default",
           "bg-[#FFC453] text-black border-black font-semibold text-base":
             variant === "yellow",
           "bg-gray-400 text-gray-600 border-gray-400 cursor-not-allowed relative":

@@ -1,15 +1,15 @@
 "use client";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import CustomCheckbox from "../checkbox";
+
 interface BottomSheetProps {
   children: React.ReactNode;
   title: string;
 }
 
 export default function BottomSheet({ children, title }: BottomSheetProps) {
-  const searchParams = useSearchParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const isOpen = searchParams.get("sheet") === "open";
 
   const closeSheet = () => {
