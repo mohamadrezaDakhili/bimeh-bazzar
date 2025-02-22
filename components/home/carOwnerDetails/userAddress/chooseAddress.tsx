@@ -34,12 +34,10 @@ const ChooseAddress = () => {
     }
   };
 
-  const openRemoveAddress = (item: IUserAddressProps) => {
+  const handleRemoveAddress = (item: IUserAddressProps) => {
     const newQuery = new URLSearchParams(searchParams);
     newQuery.set("remove", item.id);
-    const newUrl = `${window.location.pathname}?${newQuery.toString()}`;
-
-    router.push(newUrl, undefined);
+    router.push(`?${newQuery.toString()}`, { scroll: false });
   };
 
   return (
@@ -50,27 +48,25 @@ const ChooseAddress = () => {
         ) : (
           <>
             {data?.map((item: IUserAddressProps) => (
-              <div key={item.id}>
-                <div className="flex flex-col gap-2">
-                  <div className="flex justify-between">
-                    <CustomCheckbox
-                      label={item.name}
-                      checked={selectedItem?.id === item.id}
-                      onChange={() => handleSelect(item)}
-                    />
-                    <button
-                      className="text-[#FFA5A5] text-sm font-medium"
-                      onClick={() => openRemoveAddress(item)}
-                      type="button"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                  <div className="mx-6">
-                    <p className="text-[12px] font-normal text-[#757575]">
-                      {item.details}
-                    </p>
-                  </div>
+              <div key={item.id} className="flex flex-col gap-2">
+                <div className="flex justify-between">
+                  <CustomCheckbox
+                    label={item.name}
+                    checked={selectedItem?.id === item.id}
+                    onChange={() => handleSelect(item)}
+                  />
+                  <button
+                    className="text-[#FFA5A5] text-sm font-medium"
+                    onClick={() => handleRemoveAddress(item)}
+                    type="button"
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div className="mx-6">
+                  <p className="text-[12px] font-normal text-[#757575]">
+                    {item.details}
+                  </p>
                 </div>
               </div>
             ))}

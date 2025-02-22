@@ -40,7 +40,7 @@ export default function BottomSheet({
       {/* Bottom Sheet */}
       <div
         className={`fixed bottom-0 left-1/2 -translate-x-1/2 w-full bg-white
-        transition-transform duration-300 max-w-[360px]
+        transition-transform duration-300 min-w-[360px] max-w-[480px]
           ${isOpen ? "translate-y-0" : "translate-y-full"}
         `}
       >

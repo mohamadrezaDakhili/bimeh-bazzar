@@ -12,8 +12,8 @@ const RemoveAddress = () => {
   const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const id = searchParams.get("remove");
-  const [removeItem, setRemoveItem] = useState<IUserAddressProps>();
-  const { data, isLoading } = useQuery({
+  const [removeItem, setRemoveItem] = useState<IUserAddressProps | null>(null);
+  const { data, isLoading } = useQuery<IUserAddressProps[]>({
     queryKey: ["my-address"],
     queryFn: fetchAddressData,
     staleTime: 1000 * 60 * 5,
@@ -23,29 +23,26 @@ const RemoveAddress = () => {
   const handleBack = () => {
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.delete("remove");
-    const newUrl = `${window.location.pathname}?${newSearchParams.toString()}`;
-    router.push(newUrl, { scroll: false });
+    router.push(`?${newSearchParams.toString()}`, { scroll: false });
   };
 
-  const handleRemoveItem = () => {
-    queryClient.setQueryData(["my-address"], (oldData: IUserAddressProps[]) => {
-      return oldData.filter((item) => item.id !== id);
-    });
-    handleBack();
+  const handleRemoveItem = async () => {
+    if (id && data) {
+      queryClient.setQueryData(["my-address"], (oldData: IUserAddressProps[]) =>
+        oldData.filter((item) => item.id !== id)
+      );
+      handleBack();
+    }
   };
 
   useEffect(() => {
     if (data) {
-      const item = data.filter((item: IUserAddressProps) => item.id === id);
-      if (item.length > 0) {
-        setRemoveItem(item[0]);
-      } else {
-        handleBack();
+      const item = data.find((item) => item.id === id);
+      if (item) {
+        setRemoveItem(item);
       }
-    } else {
-      handleBack();
     }
-  }, [data]);
+  }, [data, id]);
 
   return (
     <>
@@ -57,14 +54,18 @@ const RemoveAddress = () => {
             <span className="text-[14px] font-medium">
               آیا از حذف آدرس خود، مطمین هستید؟
             </span>
-            <div className="bg-[#F2F2F2] p-2">
-              <span className="text-[14px] font-medium">
-                {removeItem?.name}
-              </span>
-              <p className="text-[#757575] text-[12px] font-normal">
-                {removeItem?.details}
-              </p>
-            </div>
+            {removeItem ? (
+              <div className="bg-[#F2F2F2] p-2">
+                <span className="text-[14px] font-medium">
+                  {removeItem.name}
+                </span>
+                <p className="text-[#757575] text-[12px] font-normal">
+                  {removeItem.details}
+                </p>
+              </div>
+            ) : (
+              <span>آدرس پیدا نشد.</span>
+            )}
           </>
         )}
       </section>
@@ -73,9 +74,10 @@ const RemoveAddress = () => {
         style={{ boxShadow: "0px 3px 10px 1px #2222221A" }}
       >
         <CustomButton
-          variant={"selected"}
+          variant={!removeItem ? "disabled" : "selected"}
           onClick={handleRemoveItem}
           type="button"
+          disabled={!removeItem}
         >
           تایید
         </CustomButton>

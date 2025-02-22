@@ -80,7 +80,7 @@ export default function RegisterForm() {
             <div className="w-full flex justify-end mt-[18px]">
               <CustomButton
                 variant={
-                  !formik.isValid || !activeAddress
+                  !formik.isValid || !formik.dirty || !activeAddress
                     ? "disabled"
                     : isloadingRetry
                     ? "loading"
@@ -88,7 +88,7 @@ export default function RegisterForm() {
                 }
                 className="!w-[131px]"
                 type="submit"
-                disabled={!formik.isValid || !activeAddress}
+                disabled={!formik.isValid || !formik.dirty || !activeAddress}
               >
                 تایید و ادامه
               </CustomButton>

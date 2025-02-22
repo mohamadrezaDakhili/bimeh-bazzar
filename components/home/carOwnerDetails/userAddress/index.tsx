@@ -3,7 +3,7 @@
 import BottomSheet from "@/components/common/buttomSheet";
 import CustomButton from "@/components/common/button/CustomButton";
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useMemo } from "react";
 import BottomSheetData from "./bottomSheetData";
 import { useStore } from "@/zustand/store/store";
 
@@ -11,8 +11,16 @@ const UserAddress = () => {
   const router = useRouter();
   const { activeAddress } = useStore();
   const searchParams = useSearchParams();
-  const isOpen = searchParams.get("sheet") === "open";
-  const isOpenRemoveAddress = searchParams.get("remove") !== null;
+
+  const isOpen = useMemo(
+    () => searchParams.get("sheet") === "open",
+    [searchParams]
+  );
+  const isOpenRemoveAddress = useMemo(
+    () => searchParams.get("remove") !== null,
+    [searchParams]
+  );
+
   const openSheet = () => router.push("?sheet=open", { scroll: false });
 
   return (
@@ -20,7 +28,7 @@ const UserAddress = () => {
       <h2 className="text-base font-medium">آدرس جهت درج روی بیمه‌نامه</h2>
       {activeAddress?.details ? (
         <p className="text-[#757575] text-[12px] font-normal mt-4">
-          {activeAddress?.details}
+          {activeAddress.details}
         </p>
       ) : (
         <>
