@@ -2,7 +2,19 @@ import React from "react";
 import BottomSheet from "../common/buttomSheet";
 import CustomButton from "../common/button/CustomButton";
 
-const ErrorPopup = ({ isOpen, onRetry, onClose, isLoading }: any) => (
+interface ErrorPopupProps {
+  isOpen: boolean;
+  onRetry: () => void;
+  onClose: () => void;
+  isLoading: boolean;
+}
+
+const ErrorPopup: React.FC<ErrorPopupProps> = ({
+  isOpen,
+  onRetry,
+  onClose,
+  isLoading,
+}) => (
   <BottomSheet isOpen={isOpen}>
     <div className="text-[14px] font-medium gap-2 px-3 py-4 flex flex-col">
       <span>متاسفانه در ثبت اطلاعات شما، خطایی رخ داده است.</span>
